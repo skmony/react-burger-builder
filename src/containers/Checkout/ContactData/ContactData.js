@@ -51,6 +51,7 @@ class ContactData extends Component {
           required: true,
           minLength: 5,
           maxLength: 5,
+          isNumeric: true,
         },
         valid: false,
         touched: false,
@@ -79,6 +80,7 @@ class ContactData extends Component {
         value: "",
         validation: {
           required: true,
+          isEmail: true,
         },
         valid: false,
         touched: false,
@@ -114,20 +116,27 @@ class ContactData extends Component {
     if (rules.maxLength) {
       isValid = value.length <= rules.maxLength && isValid;
     }
+    if (rules.isEmail) {
+      const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      isValid = pattern.test(value) && isValid;
+    }
+    if (rules.isNumeric) {
+      const pattern = /^[0-9]+$/;
+      isValid = pattern.test(value) && isValid;
+    }
     return isValid;
   };
 
   orderHandler = (event) => {
     event.preventDefault();
 
-    this.setState({ loading: true });
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
       formData[formElementIdentifier] = this.state.orderForm[
         formElementIdentifier
       ].value;
     }
-    console.log(this.props);
+
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
