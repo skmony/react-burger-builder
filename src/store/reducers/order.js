@@ -37,7 +37,7 @@ const fetchOrderSuccess = (state, action) => {
 };
 
 const fetchOrderFail = (state, action) => {
-  return updateObj(state, { loading: false, order: action.orders });
+  return updateObj(state, { loading: false, error: action.error });
 };
 
 const reducer = (state = initialState, action) => {
