@@ -72,6 +72,11 @@ class Auth extends Component {
     }
     return isValid;
   };
+  componentDidMount() {
+    if (!this.props.building && this.props.authRedirect !== "/") {
+      this.props.onSetAuthRedirectPath();
+    }
+  }
   inputChangedHandler = (event, controlName) => {
     const updatedControls = {
       ...this.state.controls,
@@ -127,7 +132,7 @@ class Auth extends Component {
     ));
     let authRedirect = null;
     if (this.props.isAuthenticated) {
-      authRedirect = <Redirect to="/" />;
+      authRedirect = <Redirect to={this.props.authRedirect} />;
     }
     const displayData = this.props.loading ? (
       <Spinners />
@@ -151,6 +156,8 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     isAuthenticated: state.auth.token !== null,
+    building: state.burgerBuilder.building,
+    authRedirect: state.auth.authRedirectPath,
   };
 };
 
@@ -158,6 +165,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignup) =>
       dispatch(actions.auth(email, password, isSignup)),
+    omSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/")),
   };
 };
 
