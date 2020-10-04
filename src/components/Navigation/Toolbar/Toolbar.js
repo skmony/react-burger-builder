@@ -6,17 +6,13 @@ import NavigationItems from "../NavigationItems/NavigationItems";
 
 const toolbar = (props) => (
   <header className={classes.Toolbar}>
-    <div onClick={props.toggle} className={classes.DrawerToggle}>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <div onClick={props.toggle} className={classes.DrawerToggle}></div>
     <div className={classes.Logo}>
       <Logo />
     </div>
 
     <nav className={classes.DesktopOnly}>
-      <NavigationItems />
+      <NavigationItems isAuthenticated={props.isAuth} />
     </nav>
   </header>
 );
