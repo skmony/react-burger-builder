@@ -1,3 +1,13 @@
 node_modules
  
 *.txt
+
+.firebaserc
+
+firebase.json
+
+.firebase
+
+.netlify
+
+build
