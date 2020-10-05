@@ -8,6 +8,7 @@ import withErrorHandler from "../../../hoc/WithErrorHandler/WithErrorHandler";
 import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
 import * as actionTypes from "../../../store/actions/";
+import { checkValidity } from "../../../shared/checkvalidity";
 
 class ContactData extends Component {
   state = {
@@ -102,31 +103,6 @@ class ContactData extends Component {
     formIsValid: false,
   };
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-    if (!rules) {
-      return true;
-    }
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    if (rules.isEmail) {
-      const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-      isValid = pattern.test(value) && isValid;
-    }
-    if (rules.isNumeric) {
-      const pattern = /^[0-9]+$/;
-      isValid = pattern.test(value) && isValid;
-    }
-    return isValid;
-  };
-
   orderHandler = (event) => {
     event.preventDefault();
 
@@ -154,7 +130,7 @@ class ContactData extends Component {
 
     updatedFormField.value = event.target.value;
     updatedFormField.touched = true;
-    updatedFormField.valid = this.checkValidity(
+    updatedFormField.valid = checkValidity(
       updatedFormField.value,
       updatedFormField.validation
     );
