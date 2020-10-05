@@ -50,7 +50,6 @@ export const auth = (email, password, isSignup) => {
     const url = isSignup
       ? "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBNGjyOREnAXTlHGR0Haa1Qv4r9eTIrt98"
       : "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBNGjyOREnAXTlHGR0Haa1Qv4r9eTIrt98";
-    console.log(authData);
     axios
       .post(url, authData)
       .then((response) => {
@@ -64,7 +63,6 @@ export const auth = (email, password, isSignup) => {
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch((err) => {
-        console.log(err);
         dispatch(authFail());
       });
   };

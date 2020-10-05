@@ -6,7 +6,6 @@ import * as actionTypes from "../../../store/actions/";
 
 class Logout extends Component {
   componentDidMount() {
-    console.log("HIT");
     this.props.onLogout();
   }
   render() {

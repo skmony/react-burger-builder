@@ -13,7 +13,6 @@ class Checkout extends Component {
 
   CheckoutContinuedHandler = () => {
     this.props.history.replace("/checkout/contact-data");
-    console.log(this.props);
   };
   render() {
     let summary = <Redirect to="/" />;
@@ -40,7 +39,6 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     ingredients: state.burgerBuilder.ingredients,
     purchased: state.order.purchased,
